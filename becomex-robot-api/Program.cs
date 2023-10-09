@@ -1,3 +1,5 @@
+using becomex_robot_api.Services.ArmService;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +8,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddMemoryCache();
+
+builder.Services.AddScoped<IArmService, ArmService>();
 
 var app = builder.Build();
 
