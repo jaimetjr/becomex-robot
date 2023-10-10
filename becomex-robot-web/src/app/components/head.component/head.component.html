@@ -1,5 +1,28 @@
-<div>
-    <p>
-        Head
-    </p>
+<div class="head">
+    <div>
+        Head <br>
+        Inclination Status: {{headInclination}} <br>
+        Rotation Status: {{headRotation}} <br>
+        <div style="border: none; color: red;">
+            {{error}}
+        </div>
+    </div>
+
+    <div>
+        <button (click)="moveHead('Up')">
+            Mover cabeça para cima
+        </button>
+        <button (click)="moveHead('Down')">
+            Mover cabeça para baixo
+        </button>
+
+        <button (click)="rotateHead('Left')">
+            Rotacionar para esquerda
+        </button>
+        <button (click)="rotateHead('Right')">
+            Rotacionar para direita
+        </button>
+
+        
+    </div>
 </div>

@@ -1,8 +1,28 @@
-<div>
+<div class="arm">
     <div>
         Braço {{armDirection}}
+        <div style="border: none; color: red;">
+            {{error}}
+        </div>
+        <div>
+            Estado do cotovelo: {{ elbowStatus }} <br>
+            Estado do pulso: {{ pulseStatus }}
+        </div>
+        <br>
     </div>
     <div>
-        Estado do braço: 
+        <button (click)="contrairCotovelo(armDirection)">
+            Contrair cotolevo
+        </button>
+        <button (click)="relaxarCotovelo(armDirection)">
+            Relaxar cotovelo
+        </button>
+
+        <button (click)="moverPulsoEsquerda(armDirection)">
+            Mover pulso para esquerda
+        </button>
+        <button (click)="moverPulsoDireita(armDirection)">
+            Mover pulso para direita
+        </button>
     </div>
 </div>

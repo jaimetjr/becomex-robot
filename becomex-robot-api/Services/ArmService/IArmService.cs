@@ -6,7 +6,7 @@ namespace becomex_robot_api.Services.ArmService
     {
         ElbowEnum RiseElbow(ElbowEnum currentState);
         ElbowEnum DescendElbow(ElbowEnum currentState);
-        PulseEnum RisePulse(PulseEnum currentState);
-        PulseEnum DescendPulse(PulseEnum currentState);
+        PulseEnum RotateMinusPulse(PulseEnum currentState);
+        PulseEnum RotatePlusPulse(PulseEnum currentState);
     }
 }

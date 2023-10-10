@@ -21,11 +21,6 @@ namespace becomex_robot_api.Services.ArmService
             }
         }
 
-        public PulseEnum DescendPulse(PulseEnum currentState)
-        {
-            throw new NotImplementedException();
-        }
-
         public ElbowEnum RiseElbow(ElbowEnum currentState)
         {
             switch (currentState)
@@ -43,11 +38,50 @@ namespace becomex_robot_api.Services.ArmService
             }
         }
 
-        public PulseEnum RisePulse(PulseEnum currentState)
+        public PulseEnum RotateMinusPulse(PulseEnum currentState)
         {
             switch (currentState)
             {
-                
+                case PulseEnum.RotationMinus90:
+                    throw new Exception("Ação invalida");
+                case PulseEnum.RotationMinus45:
+                    return PulseEnum.RotationMinus90;
+                case PulseEnum.Rest:
+                    return PulseEnum.RotationMinus45;
+                case PulseEnum.RotationPlus45:
+                    return PulseEnum.Rest;
+                case PulseEnum.RotationPlus90:
+                    return PulseEnum.RotationPlus45;
+                case PulseEnum.RotationPlus135:
+                    return PulseEnum.RotationPlus90;
+                case PulseEnum.RotationPlus180:
+                    return PulseEnum.RotationPlus135;
+                default:
+                    throw new Exception("Ação invalida");
+            }
+        }
+
+        public PulseEnum RotatePlusPulse(PulseEnum currentState)
+        {
+            switch (currentState)
+            {
+                case PulseEnum.RotationMinus90:
+                    return PulseEnum.RotationMinus45;
+                case PulseEnum.RotationMinus45:
+                    return PulseEnum.Rest;
+                case PulseEnum.Rest:
+                    return PulseEnum.RotationPlus45;
+                case PulseEnum.RotationPlus45:
+                    return PulseEnum.RotationPlus90;
+                case PulseEnum.RotationPlus90:
+                    return PulseEnum.RotationPlus135;
+                case PulseEnum.RotationPlus135:
+                    return PulseEnum.RotationPlus180;
+                case PulseEnum.RotationPlus180:
+                    throw new Exception("Ação invalida");
+                default:
+                    throw new Exception("Ação invalida");
+
             }
         }
     }

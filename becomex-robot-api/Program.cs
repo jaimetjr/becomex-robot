@@ -1,4 +1,5 @@
 using becomex_robot_api.Services.ArmService;
+using becomex_robot_api.Services.HeadService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +12,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMemoryCache();
 
 builder.Services.AddScoped<IArmService, ArmService>();
-
+builder.Services.AddScoped<IHeadService, HeadService>();
+builder.Services.AddCors();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -20,6 +22,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+
+app.UseCors(x =>
+{
+    x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+});
 
 app.UseHttpsRedirection();
 

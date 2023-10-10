@@ -1,11 +1,9 @@
-div {
-    border: 1px solid black;
-    width: 100px;
-    height: 100px;
+.head {
+    display: flex;
 }
 
-div p {
-    position: absolute;
-    left: 30%;
-    top: 15%;
+.head div {
+    border: 1px solid black;
+    width: 200px;
+    
 }

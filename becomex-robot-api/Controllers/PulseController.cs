@@ -37,55 +37,63 @@ namespace becomex_robot_api.Controllers
             _service = service;
         }
 
-        [HttpPost("RiseArmPulse")]
-        public IActionResult RiseArmPulse(string direction)
+        [HttpPost("RotatePlusPulse")]
+        public IActionResult RotatePlusPulse([FromBody] string direction)
         {
-            PulseEnum nextState;
-            if (direction == "left")
+            try
             {
-                if (_leftArm.Elbow != ElbowEnum.StronglyContracted)
-                    return BadRequest("Pulso só pode ser movimentado com Cotovelo fortemente contraído");
-                nextState = _service.RisePulse(_leftArm.Pulse);
-                _leftArm.Pulse = nextState;
-                _memory.Set(LeftArm, _leftArm);
-                return Ok(nextState);
-            }
+                if (direction == "Esquerdo")
+                {
+                    if (_leftArm.Elbow != ElbowEnum.StronglyContracted)
+                        return BadRequest("Pulso só pode ser movimentado com Cotovelo fortemente contraído");
+                    _leftArm.Pulse = _service.RotatePlusPulse(_leftArm.Pulse);
+                    _memory.Set(LeftArm, _leftArm);
+                    return Ok(_leftArm.Pulse);
+                }
 
-            if (direction == "right")
+                if (direction == "Direito")
+                {
+                    if (_rightArm.Elbow != ElbowEnum.StronglyContracted)
+                        return BadRequest("Pulso só pode ser movimentado com Cotovelo fortemente contraído");
+                    _rightArm.Pulse = _service.RotatePlusPulse(_rightArm.Pulse);
+                    _memory.Set(RightArm, _rightArm);
+                    return Ok(_rightArm.Pulse);
+                }
+            }
+            catch (Exception ex)
             {
-                if (_rightArm.Elbow != ElbowEnum.StronglyContracted)
-                    return BadRequest("Pulso só pode ser movimentado com Cotovelo fortemente contraído");
-                nextState = _service.RisePulse(_rightArm.Pulse);
-                _rightArm.Pulse = nextState;
-                _memory.Set(RightArm, _rightArm);
-                return Ok(nextState);
+                return BadRequest(ex.Message);
             }
 
             return BadRequest("Erro ao mexer pulso");
         }
 
-        [HttpPost("DescendArmPulse")]
-        public IActionResult DescendArmPulse(string direction)
+        [HttpPost("RotateMinusPulse")]
+        public IActionResult RotateMinusPulse([FromBody] string direction)
         {
-            PulseEnum nextState;
-            if (direction == "left")
+            try
             {
-                if (_leftArm.Elbow != ElbowEnum.StronglyContracted)
-                    return BadRequest("Pulso só pode ser movimentado com Cotovelo fortemente contraído");
-                nextState = _service.DescendPulse(_leftArm.Pulse);
-                _leftArm.Pulse = nextState;
-                _memory.Set(LeftArm, _leftArm);
-                return Ok(nextState);
-            }
+                if (direction == "Esquerdo")
+                {
+                    if (_leftArm.Elbow != ElbowEnum.StronglyContracted)
+                        return BadRequest("Pulso só pode ser movimentado com Cotovelo fortemente contraído");
+                    _leftArm.Pulse = _service.RotateMinusPulse(_leftArm.Pulse);
+                    _memory.Set(LeftArm, _leftArm);
+                    return Ok(_leftArm.Pulse);
+                }
 
-            if (direction == "right")
+                if (direction == "Direito")
+                {
+                    if (_rightArm.Elbow != ElbowEnum.StronglyContracted)
+                        return BadRequest("Pulso só pode ser movimentado com Cotovelo fortemente contraído");
+                    _rightArm.Pulse = _service.RotateMinusPulse(_rightArm.Pulse);
+                    _memory.Set(RightArm, _rightArm);
+                    return Ok(_rightArm.Pulse);
+                }
+            }
+            catch (Exception ex)
             {
-                if (_rightArm.Elbow != ElbowEnum.StronglyContracted)
-                    return BadRequest("Pulso só pode ser movimentado com Cotovelo fortemente contraído");
-                nextState = _service.DescendPulse(_rightArm.Pulse);
-                _rightArm.Pulse = nextState;
-                _memory.Set(RightArm, _rightArm);
-                return Ok(nextState);
+                return BadRequest(ex.Message);
             }
 
             return BadRequest("Erro ao mexer pulso");

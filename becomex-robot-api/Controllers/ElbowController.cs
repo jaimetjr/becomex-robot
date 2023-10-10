@@ -39,49 +39,56 @@ namespace becomex_robot_api.Controllers
 
 
         [HttpPost("RiseArmElbow")]
-        public IActionResult RiseArmElbow(string direction)
+        public IActionResult RiseArmElbow([FromBody] string direction)
         {
-            ElbowEnum nextState;
-            if (direction == "left")
+            try
             {
-                nextState = _service.RiseElbow(_leftArm.Elbow);
-                _leftArm.Elbow = nextState;
-                _memory.Set(LeftArm, _leftArm);
-                return Ok(nextState);
+                if (direction == "Esquerdo")
+                {
+                    _leftArm.Elbow = _service.RiseElbow(_leftArm.Elbow);
+                    _memory.Set(LeftArm, _leftArm);
+                    return Ok(_leftArm.Elbow);
+                }
+
+                if (direction == "Direito")
+                {
+                    _rightArm.Elbow = _service.RiseElbow(_rightArm.Elbow);
+                    _memory.Set(RightArm, _rightArm);
+                    return Ok(_rightArm.Elbow);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
 
-            if (direction == "right")
-            {
-                nextState = _service.RiseElbow(_rightArm.Elbow);
-                _rightArm.Elbow = nextState;
-                _memory.Set(RightArm, _rightArm);
-                return Ok(nextState);
-            }
-
-            return BadRequest("Erro ao levantar cotovelo");
+            return BadRequest("Direção inválida");
         }
 
         [HttpPost("DescendArmElbow")]
-        public IActionResult DescendArmElbow(string direction)
+        public IActionResult DescendArmElbow([FromBody] string direction)
         {
-            ElbowEnum nextState;
-            if (direction == "left")
+            try
             {
-                nextState = _service.DescendElbow(_leftArm.Elbow);
-                _leftArm.Elbow = nextState;
-                _memory.Set(LeftArm, _leftArm);
-                return Ok(nextState);
-            }
+                if (direction == "Esquerdo")
+                {
+                    _leftArm.Elbow = _service.DescendElbow(_leftArm.Elbow);
+                    _memory.Set(LeftArm, _leftArm);
+                    return Ok(_leftArm.Elbow);
+                }
 
-            if (direction == "right")
+                if (direction == "Direito")
+                {
+                    _rightArm.Elbow = _service.DescendElbow(_rightArm.Elbow);
+                    _memory.Set(RightArm, _rightArm);
+                    return Ok(_rightArm.Elbow);
+                }
+            }
+            catch (Exception ex)
             {
-                nextState = _service.DescendElbow(_rightArm.Elbow);
-                _rightArm.Elbow = nextState;
-                _memory.Set(RightArm, _rightArm);
-                return Ok(nextState);
+                return BadRequest(ex.Message);
             }
-
-            return BadRequest("Erro ao levantar cotovelo");
+            return BadRequest("Direção inválida");
         }
     }
 }

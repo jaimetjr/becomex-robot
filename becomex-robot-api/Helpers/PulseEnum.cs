@@ -9,6 +9,5 @@
         RotationPlus90 = 5,
         RotationPlus135 = 6,
         RotationPlus180 = 7,
-
     }
 }
